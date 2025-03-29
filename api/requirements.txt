@@ -1,12 +1,1 @@
-fastapi
-uvicorn
-music21
-librosa
-mido
-numpy
-scipy
-matplotlib
-pydub
-soundfile
-midi2audio
-python-multipart
+
