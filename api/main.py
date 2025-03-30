@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from fastapi import FastAPI, UploadFile
 from profesor_ritmo_motores import motor_generador, motor_analizador, motor_comparador
@@ -34,4 +34,3 @@ async def comparar(file_objetivo: UploadFile, file_usuario: UploadFile):
         tmp1.write(await file_objetivo.read())
         tmp2.write(await file_usuario.read())
         return motor_comparador.comparar_ritmos(tmp1.name, tmp2.name)
-
