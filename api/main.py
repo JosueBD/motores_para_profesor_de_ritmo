@@ -1,6 +1,4 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 
 from fastapi import FastAPI, UploadFile
 from profesor_ritmo_motores import motor_generador, motor_analizador, motor_comparador
