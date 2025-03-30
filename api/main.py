@@ -1,7 +1,8 @@
 
 
 from fastapi import FastAPI, UploadFile
-from profesor_ritmo_motores import motor_generador, motor_analizador, motor_comparador
+from .profesor_ritmo_motores import motor_generador, motor_analizador, motor_comparador
+
 import tempfile
 
 app = FastAPI()
