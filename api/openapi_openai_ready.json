@@ -3,73 +3,63 @@
   "info": {
     "title": "Motores para Profesor de Ritmo",
     "version": "2.0.0",
-    "description": "Motores musicales para notación, análisis y generación de ritmo moderno en la IA generativa Profesor de Ritmo."
+    "description": "Motor rítmico integrado con notación, análisis MIDI/WAV y comparación musical para la IA generativa Profesor de Ritmo."
   },
   "servers": [
     {
       "url": "https://motores-para-profesor-de-ritmo.onrender.com",
-      "description": "Servidor FastAPI – Backend de los motores internos"
+      "description": "Servidor principal de motores para Profesor de Ritmo"
     }
   ],
   "paths": {
     "/escribir_musica": {
       "get": {
-        "summary": "Escribir música como partitura",
+        "summary": "Escribir partitura desde texto musical",
         "operationId": "escribirMusica",
         "parameters": [
           {
             "name": "texto",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" },
-            "description": "Notas musicales (ej. C4 D4 E4 F4)"
+            "schema": { "type": "string" }
           },
           {
             "name": "clave",
             "in": "query",
             "required": true,
-            "schema": { "type": "string", "enum": ["G", "F"] },
-            "description": "Clave musical: G (sol) o F (fa)"
+            "schema": { "type": "string", "enum": ["G", "F"] }
           },
           {
             "name": "compas",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" },
-            "description": "Compás musical (ej. 2/4, 4/4)"
+            "schema": { "type": "string" }
           },
           {
             "name": "formato",
             "in": "query",
             "required": true,
-            "schema": { "type": "string", "enum": ["png", "pdf", "midi", "wav"] },
-            "description": "Formato de salida"
+            "schema": { "type": "string", "enum": ["png", "pdf", "midi", "wav"] }
           },
           {
             "name": "nombres",
             "in": "query",
-            "required": false,
-            "schema": { "type": "string", "enum": ["1", "0"] },
-            "description": "Mostrar nombres de nota (1 = sí, 0 = no)"
+            "schema": { "type": "string", "enum": ["0", "1"] }
           },
           {
             "name": "colores",
             "in": "query",
-            "required": false,
-            "schema": { "type": "string", "enum": ["1", "0"] },
-            "description": "Colorear figuras (1 = sí, 0 = no)"
+            "schema": { "type": "string", "enum": ["0", "1"] }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Archivo generado (PNG, PDF, MIDI o WAV)"
-          }
+          "200": { "description": "Archivo generado con la partitura" }
         }
       }
     },
     "/generar_ritmo": {
       "get": {
-        "summary": "Generar ritmo automático",
+        "summary": "Generar ritmo en MIDI",
         "operationId": "generarRitmo",
         "parameters": [
           { "name": "tempo", "in": "query", "required": true, "schema": { "type": "integer" } },
@@ -78,9 +68,7 @@
           { "name": "compases", "in": "query", "required": true, "schema": { "type": "integer" } }
         ],
         "responses": {
-          "200": {
-            "description": "Archivo MIDI generado automáticamente"
-          }
+          "200": { "description": "Archivo MIDI generado" }
         }
       }
     },
@@ -89,15 +77,13 @@
         "summary": "Analizar archivo MIDI",
         "operationId": "analizarMidi",
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
+                  "file": { "type": "string", "format": "binary" }
                 },
                 "required": ["file"]
               }
@@ -105,26 +91,22 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Resultado del análisis MIDI"
-          }
+          "200": { "description": "Datos del análisis del MIDI" }
         }
       }
     },
     "/analizar_wav": {
       "post": {
-        "summary": "Analizar archivo de audio WAV",
+        "summary": "Analizar archivo WAV",
         "operationId": "analizarWav",
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "file": {
-                    "type": "string",
-                    "format": "binary"
-                  }
+                  "file": { "type": "string", "format": "binary" }
                 },
                 "required": ["file"]
               }
@@ -132,17 +114,16 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Resultado del análisis de audio"
-          }
+          "200": { "description": "Datos del análisis del audio" }
         }
       }
     },
     "/comparar_ritmos": {
       "post": {
-        "summary": "Comparar dos ejecuciones rítmicas",
+        "summary": "Comparar dos ritmos",
         "operationId": "compararRitmos",
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -157,9 +138,7 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Resultado de la comparación entre los dos ritmos"
-          }
+          "200": { "description": "Resultado de la comparación rítmica" }
         }
       }
     }
